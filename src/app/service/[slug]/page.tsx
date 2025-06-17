@@ -2,6 +2,7 @@ import { fetchProjects } from '@/lib/fetchProjects';
 import { notFound } from 'next/navigation';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import SwipeProjectCard from "@/components/SwipeProjectCard";
+import { fetchProjects as fetchSupabaseProjects } from "../../../../lib/supabase.ts/fetchProjects";
 
 interface Project {
   id: number;
@@ -32,46 +33,6 @@ const SERVICE_COLORS = {
   'facilitation': '#2f3a41',
 };
 
-// sample projects for service-design (replace later with Supabase)
-const serviceDesignProjects = [
-  {
-    idx: 1,
-    client: "NATIONAL CONGLOMERATE, PHILIPPINES",
-    title: "Household OS: Re-imagining family coordination",
-    blurb: "",
-    variant: 1 as const,
-  },
-  {
-    idx: 1,
-    client: "NATIONAL CONGLOMERATE, PHILIPPINES",
-    title: "How might we design for family coordination, not just individual utility?",
-    blurb: "Hero question overlay variant",
-    variant: 2 as const,
-  },
-  {
-    idx: 1,
-    client: "LEADING INSURER, APAC",
-    title: "Insurance Mindsets Playbook: A toolkit for empathy",
-    blurb:
-      "Twelve behavioural mindsets became the shared language marketing, product and ops used to reduce lapse risk.",
-    variant: 3 as const,
-  },
-  {
-    idx: 1,
-    client: "LEADING INSURER, APAC",
-    title: "From insight to organisation-wide activation",
-    blurb: "Two-column deep dive copy sample for variant 4.",
-    variant: 4 as const,
-  },
-  {
-    idx: 1,
-    client: "NATIONAL MINISTRY, SINGAPORE",
-    title: "Yearbook of the Future: Documenting a living system in transition",
-    blurb: "I shaped narrative development and strategic positioning, surfacing the underlying tensions that connected disparate customer touchpoints.",
-    variant: 5 as const,
-  },
-] as const;
-
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
@@ -79,8 +40,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     notFound();
   }
   
-  const projects: Project[] = await fetchProjects();
-  const filtered = projects.filter(p => p.service_type === slug);
+  // fetch dynamic project slides from Supabase
+  const slides = await fetchSupabaseProjects();
+  const filtered = slides.filter((p: any) => p.service_type === slug && p.project_number === 1);
   const serviceTitle = SERVICE_TITLES[slug as keyof typeof SERVICE_TITLES];
   const serviceColor = SERVICE_COLORS[slug as keyof typeof SERVICE_COLORS];
 
@@ -138,9 +100,28 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       <section
         className="w-screen mt-[60px] flex gap-10 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-[calc(50vw-451px)]"
       >
-        {serviceDesignProjects.map((p) => (
-          <SwipeProjectCard key={p.idx} {...p} />
-        ))}
+        {filtered.map((slide: any, i: number) => {
+          const VARIANT_MAP: Record<string, number> = {
+            "Project Cover": 1,
+            "Design Question": 2,
+            "3-5 Image Content": 3,
+            "1-1 Content Column": 4,
+            "3-5 Content Col": 5,
+          };
+
+          const variantNumber = (VARIANT_MAP[slide.variant] ?? 1) as 1 | 2 | 3 | 4 | 5;
+
+          const cardProps = {
+            idx: slide.project_number ?? 1,
+            client: slide.overline?.split("CLIENT:")[1]?.trim() ?? "Client",
+            title: slide.title ?? slide.hmw_line ?? "",
+            blurb: slide.copy ?? "",
+            img: slide.cover_image_url || slide.project_image_url || undefined,
+            variant: variantNumber,
+          } as const;
+
+          return <SwipeProjectCard key={i} {...cardProps} />;
+        })}
       </section>
     </main>
   );
