@@ -134,8 +134,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </p>
       </section>
 
-      {/* Projects */}
-      <section className="mx-auto max-w-[902px] mt-[60px] flex gap-10 overflow-x-auto scroll-snap-x scroll-smooth pb-6">
+      {/* Projects Carousel */}
+      <section
+        className="w-screen mt-[60px] flex gap-10 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-[calc(50vw-451px)]"
+      >
         {serviceDesignProjects.map((p) => (
           <SwipeProjectCard key={p.idx} {...p} />
         ))}
