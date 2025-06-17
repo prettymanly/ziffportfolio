@@ -123,7 +123,7 @@ export default function Home() {
             {/* Service Links */}
             <div className="flex gap-[30px] font-mono text-[16px] tracking-[-0.8px] text-[#5e7c72] leading-[16px]">
               <div className="flex-1">
-                <p>VIEW <span className="underline font-bold">DESIGN RESEARCH + SERVICE DESIGN PROJECTS</span></p>
+                <p>VIEW <a href="/service/service-design" className="underline font-bold hover:text-[#404b51]">DESIGN RESEARCH + SERVICE DESIGN PROJECTS</a></p>
               </div>
               <div>
                 <p>ENQUIRE ON DESIGN RESEARCH WORK</p>
@@ -182,7 +182,7 @@ export default function Home() {
             {/* Futures Links */}
             <div className="flex gap-[30px] font-mono text-[16px] tracking-[-0.8px] text-[#5e7c72] leading-[16px]">
               <div className="flex-1">
-                <p>VIEW <span className="underline font-bold">FUTURES + FORESIGHT PROJECTS</span></p>
+                <p>VIEW <a href="/service/futures" className="underline font-bold hover:text-[#404b51]">FUTURES + FORESIGHT PROJECTS</a></p>
               </div>
               <div>
                 <p>ENQUIRE ON FUTURES + FORESIGHT WORK</p>
@@ -240,10 +240,10 @@ export default function Home() {
             {/* AI Links */}
             <div className="flex gap-[30px] font-mono text-[16px] tracking-[-0.8px] text-[#5e7c72] leading-[16px]">
               <div className="flex-1">
-                <p>VIEW <span className="underline font-bold">GENERATIVE AI + AUTOMATION PROJECTS</span></p>
+                <p>VIEW <a href="/service/creative-tech" className="underline font-bold hover:text-[#404b51]">GENERATIVE AI + AUTOMATION PROJECTS</a></p>
               </div>
               <div>
-                <p>ENQUIRE ON DESIGN RESEARCH WORK</p>
+                <p>ENQUIRE ON GENERATIVE AI + AUTOMATION WORK</p>
               </div>
             </div>
 
@@ -297,10 +297,10 @@ export default function Home() {
             {/* Teaching Links */}
             <div className="flex gap-[30px] font-mono text-[16px] tracking-[-0.8px] text-[#5e7c72] leading-[16px]">
               <div className="flex-1">
-                <p>VIEW <span className="underline font-bold">DESIGN RESEARCH/SERVICE DESIGN PROJECTS</span></p>
+                <p>VIEW <a href="/service/facilitation" className="underline font-bold hover:text-[#404b51]">TEACHING + FACILITATION PROJECTS</a></p>
               </div>
               <div>
-                <p>ENQUIRE ON DESIGN RESEARCH WORK</p>
+                <p>ENQUIRE ON TEACHING + FACILITATION WORK</p>
               </div>
             </div>
 
