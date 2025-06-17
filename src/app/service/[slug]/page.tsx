@@ -1,8 +1,7 @@
-import { fetchProjects } from '@/lib/fetchProjects';
+import { fetchProjects as fetchSupabaseProjects } from '../../../../lib/supabase.ts/fetchProjects';
 import { notFound } from 'next/navigation';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import SwipeProjectCard from "@/components/SwipeProjectCard";
-import { fetchProjects as fetchSupabaseProjects } from "../../../../lib/supabase.ts/fetchProjects";
 
 interface Project {
   id: number;
